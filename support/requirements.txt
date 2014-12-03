@@ -3,3 +3,5 @@ django-mptt
 python-social-auth
 easy-thumbnails
 mysql-python
+#ls-django-treeadmin
+git+https://github.com/che0/ls-django-treeadmin.git
