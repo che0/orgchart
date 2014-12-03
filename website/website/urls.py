@@ -8,12 +8,8 @@ from social.apps.django_app.views import auth as social_auth
 admin.autodiscover()
 admin.site.login = curry(social_auth, backend='google-oauth2')
 
-from django.http import HttpResponse
-def foo(request):
-    return HttpResponse(unicode(request.user) + ' ' + unicode(request.user.is_staff))
-
 urlpatterns = patterns('',
-    url('^$', foo),
+    url('^$', 'orgchart.views.chart'),
     url('', include('social.apps.django_app.urls', namespace='social')),
     url(r'^admin/', include(admin.site.urls)),
 )

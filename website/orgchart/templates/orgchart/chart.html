@@ -1,0 +1,43 @@
+{% load thumbnail %}
+<html>
+  <head>
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript">
+      google.load("visualization", "1", {packages:["orgchart"]});
+      google.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Person');
+        data.addColumn('string', 'Manager');
+
+        data.addRows([
+        {% for person in people %}
+          [{v:'{{person.id}}', f:'{% filter escapejs %}
+          {% if person.photo %}<img src="{% thumbnail person.photo 128x128 %}" alt="{{person.full_name}}">{% endif %}
+          <span class="name">{{person.short_name}}</span>{% if person.nickname %} <span class="nickname">({{person.nickname}})</span>{% endif %}
+          {% for title in person.title_set.all %}<span class="title">{{title}}</span>{% endfor %}
+          <ul class="contacts">{% if person.email %}<li><a href="mailto:{{person.email}}">{{person.email}}</a></li>{% endif %}
+          {% for phone in person.phonenumber_set.all %}<li>{{phone.number}}</li>{% endfor %}
+          </div>
+          {% endfilter %}'}, '{{person.boss.id}}'],
+        {% endfor %}
+        ]);
+
+        var chart = new google.visualization.OrgChart(document.getElementById('chart_div'));
+        chart.draw(data, {allowHtml:true, nodeClass:'node'});
+      }
+   </script>
+   <style type="text/css">
+	.node { background-color: #EDF7FF; border: 2px solid #B5D9EA; }
+	.node .name { display:block; font-size: 130%; font-weight: bold; }
+	.node .nickname { font-size: smaller; }
+	.node .title { display: block; }
+	.node .contacts { margin-top: 0.3em; list-style: none; }
+   </style>
+   
+    </head>
+  <body>
+    <div id="chart_div""></div>
+  </body>
+</html>
+

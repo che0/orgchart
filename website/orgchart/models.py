@@ -14,6 +14,9 @@ class Person(MPTTModel):
     def __unicode__(self):
         return self.full_name()
     
+    def short_name(self):
+        return self.name + ' ' + self.surname
+    
     def full_name(self):
         name = self.name + ' ' + self.surname
         if self.nickname:
