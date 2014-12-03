@@ -42,3 +42,5 @@ table.people tr:hover td { background-color:#eec; }
 .tree .card .edit { display: none; }
 .tree .card .edit a { padding: 0.3em 0.5em; border-top-right-radius: 10px; }
 .tree .card:hover .edit { display: block; position: absolute; top: 0; right: 0; }
+
+.phone-number { white-space: nowrap; }

@@ -13,9 +13,10 @@
 				<div class="name"><span class="main">{{node.short_name}}</span> {% if node.nickname %}<span class="nickname">({{node.nickname}})</span>{% endif %}</div>
 			</a>
 			{% for title in node.title_set.all %}<span class="title">{{title}}</span>{% endfor %}
-			<ul class="contacts">{% if node.email %}<li><a href="mailto:{{node.email}}">{{node.email}}</a></li>{% endif %}
-			{% for phone in node.phonenumber_set.all %}<li>{{phone.number}}</li>{% endfor %}
-			</div>
+			<ul class="contacts">
+				{% if node.email %}<li><a href="mailto:{{node.email}}">{{node.email}}</a></li>{% endif %}
+				{% for phone in node.phonenumber_set.all %}<li>{{phone.number}}</li>{% endfor %}
+			</ul>
 		</div>
 		{% if not node.is_leaf_node %}
 			<ul class="children {% if node.levels_below == 1 %}flat{% else %}structured{% endif %}">

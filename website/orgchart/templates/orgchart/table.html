@@ -7,7 +7,7 @@
 <thead><tr><th>Name</th><th>Title</th><th>E-mail</th><th>Phone</th></tr></thead>
 <tbody>{% for person in person_list %}
 <tr><td><a href="{{person.get_absolute_url}}" class="subtle"><span class="name">{{person.short_name}}</span>{% if person.nickname %} <span class="nickname">({{person.nickname}})</span>{% endif %}</a></td>
-<td>{{person.title|default:"&nbsp;"}}</td><td>{% if person.email %}<a href="mailto:{{person.email}}">{{person.email}}</a>{% else %}&nbsp;{% endif %}</td><td>{{person.phone|default:"&nbsp;"}}</td></tr>
+<td>{% for title in person.title_set.all %}{{title.title}}{% if not forloop.last %}<br>{% endif %}{% empty %}&nbsp;{% endfor %}</td><td>{% if person.email %}<a href="mailto:{{person.email}}">{{person.email}}</a>{% else %}&nbsp;{% endif %}</td><td>{% for phone in person.phonenumber_set.all %}<span class="phone-number">{{phone.number}}</span>{% if not forloop.last %}, {% endif %}{% empty %}&nbsp;{% endfor %}</span></td></tr>
 {% endfor %}</tbody>
 </table>
 {% endblock %}
