@@ -10,6 +10,7 @@ admin.site.login = curry(social_auth, backend='google-oauth2')
 
 urlpatterns = patterns('',
     url('^$', 'orgchart.views.chart', name='chart'),
+    url('^big/$', 'orgchart.views.huge_chart', name='huge_chart'),
     url('^table/$', 'orgchart.views.table', name='table'),
     url('^person/(?P<pk>\d+)/$', 'orgchart.views.detail', name='person_detail'),
     url('', include('social.apps.django_app.urls', namespace='social')),

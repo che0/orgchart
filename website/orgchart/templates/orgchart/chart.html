@@ -1,40 +1,27 @@
 {% extends "orgchart/base.html" %}
-{% load thumbnail %}
+{% load mptt_tags thumbnail %}
 
 {% block title %}Org chart{% endblock %}
 
-{% block head %}{{block.super}}
-    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
-    <script type="text/javascript">
-      google.load("visualization", "1", {packages:["orgchart"]});
-      google.setOnLoadCallback(drawChart);
-      function drawChart() {
-        var data = new google.visualization.DataTable();
-        data.addColumn('string', 'Person');
-        data.addColumn('string', 'Manager');
-
-        data.addRows([
-        {% for person in person_list %}
-          [{v:'{{person.id}}', f:'{% filter escapejs %}
-          <span class="edit"><a href="{% url "admin:orgchart_person_change" person.id %}">edit</a></span>
-          <a href="{{person.get_absolute_url}}" class="subtle">
-              {% if person.photo %}<img src="{% thumbnail person.photo 128x128 %}" alt="{{person.full_name}}">{% endif %}
-              <span class="name">{{person.short_name}}</span>{% if person.nickname %} <span class="nickname">({{person.nickname}})</span>{% endif %}
-          </a>
-          {% for title in person.title_set.all %}<span class="title">{{title}}</span>{% endfor %}
-          <ul class="contacts">{% if person.email %}<li><a href="mailto:{{person.email}}">{{person.email}}</a></li>{% endif %}
-          {% for phone in person.phonenumber_set.all %}<li>{{phone.number}}</li>{% endfor %}
-          </div>
-          {% endfilter %}'}, '{{person.boss.id}}'],
-        {% endfor %}
-        ]);
-
-        var chart = new google.visualization.OrgChart(document.getElementById('chart_div'));
-        chart.draw(data, {allowHtml:true, nodeClass:'node'});
-      }
-   </script>
-{% endblock %}
-
 {% block content %}
-<div id="chart_div""></div>
-{% endblock %}
+<ul class="tree">{% recursetree person_list %}
+        <li class="item {% if node.is_leaf_node %}leaf{% endif %}">
+		<div class="card {% if node.photo %}with-photo{% endif %}">
+			<span class="edit"><a href="{% url "admin:orgchart_person_change" node.id %}">edit</a></span>
+			<a href="{{node.get_absolute_url}}" class="subtle">
+				{% if node.photo %}<img src="{% thumbnail node.photo 60x80 %}" alt="{{node.full_name}}">{% endif %}
+				<div class="name"><span class="main">{{node.short_name}}</span> {% if node.nickname %}<span class="nickname">({{node.nickname}})</span>{% endif %}</div>
+			</a>
+			{% for title in node.title_set.all %}<span class="title">{{title}}</span>{% endfor %}
+			<ul class="contacts">{% if node.email %}<li><a href="mailto:{{node.email}}">{{node.email}}</a></li>{% endif %}
+			{% for phone in node.phonenumber_set.all %}<li>{{phone.number}}</li>{% endfor %}
+			</div>
+		</div>
+		{% if not node.is_leaf_node %}
+			<ul class="children {% if node.levels_below == 1 %}flat{% else %}structured{% endif %}">
+			{{ children }}
+			</ul>
+		{% endif %}
+	</li>
+{% endrecursetree %}</ul>
+{% endblock content %}

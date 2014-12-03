@@ -46,6 +46,13 @@ class Person(MPTTModel):
     def get_absolute_url(self):
         return reverse('person_detail', kwargs={'pk':self.id})
     
+    def levels_below(self):
+        bottom = self.get_descendants().aggregate(max=models.Max('level'))['max']
+        if bottom is None:
+            return 0
+        else:
+            return bottom - self.level
+    
     class Meta:
         ordering = ['surname', 'name']
         verbose_name_plural = 'people'
