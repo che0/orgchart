@@ -75,3 +75,5 @@ SOCIAL_AUTH_STRATEGY = 'social.strategies.django_strategy.DjangoStrategy'
 SOCIAL_AUTH_STORAGE = 'social.apps.django_app.default.models.DjangoStorage'
 
 LOGIN_URL = '/login/google-oauth2/'
+
+DEFAULT_FILE_STORAGE = 'website.utils.ASCIIFileSystemStorage'
