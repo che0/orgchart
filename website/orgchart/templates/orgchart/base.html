@@ -6,6 +6,13 @@
 </head>
 <body>
 <div id="menu">{{user}} | <a href="{% url 'chart' %}">chart</a> |  <a href="{% url 'huge_chart' %}">huge chart</a> | <a href="{% url 'table' %}">table</a> | <a href="{% url 'admin:orgchart_person_changelist' %}">edit list</a></div>
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
 {% block content %}{% endblock %}
 </body>
 </html>

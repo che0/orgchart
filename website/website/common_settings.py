@@ -26,6 +26,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'social.apps.django_app.middleware.SocialAuthExceptionMiddleware',
+    'website.middleware.ForbiddenAuthMiddleware',
 )
 
 TEMPLATE_CONTEXT_PROCESSORS = (
