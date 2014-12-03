@@ -1,6 +1,9 @@
+{% extends "orgchart/base.html" %}
 {% load thumbnail %}
-<html>
-  <head>
+
+{% block title %}Org chart{% endblock %}
+
+{% block head %}{{block.super}}
     <script type="text/javascript" src="https://www.google.com/jsapi"></script>
     <script type="text/javascript">
       google.load("visualization", "1", {packages:["orgchart"]});
@@ -11,10 +14,13 @@
         data.addColumn('string', 'Manager');
 
         data.addRows([
-        {% for person in people %}
+        {% for person in person_list %}
           [{v:'{{person.id}}', f:'{% filter escapejs %}
-          {% if person.photo %}<img src="{% thumbnail person.photo 128x128 %}" alt="{{person.full_name}}">{% endif %}
-          <span class="name">{{person.short_name}}</span>{% if person.nickname %} <span class="nickname">({{person.nickname}})</span>{% endif %}
+          <span class="edit"><a href="{% url "admin:orgchart_person_change" person.id %}">edit</a></span>
+          <a href="{{person.get_absolute_url}}" class="subtle">
+              {% if person.photo %}<img src="{% thumbnail person.photo 128x128 %}" alt="{{person.full_name}}">{% endif %}
+              <span class="name">{{person.short_name}}</span>{% if person.nickname %} <span class="nickname">({{person.nickname}})</span>{% endif %}
+          </a>
           {% for title in person.title_set.all %}<span class="title">{{title}}</span>{% endfor %}
           <ul class="contacts">{% if person.email %}<li><a href="mailto:{{person.email}}">{{person.email}}</a></li>{% endif %}
           {% for phone in person.phonenumber_set.all %}<li>{{phone.number}}</li>{% endfor %}
@@ -27,17 +33,8 @@
         chart.draw(data, {allowHtml:true, nodeClass:'node'});
       }
    </script>
-   <style type="text/css">
-	.node { background-color: #EDF7FF; border: 2px solid #B5D9EA; }
-	.node .name { display:block; font-size: 130%; font-weight: bold; }
-	.node .nickname { font-size: smaller; }
-	.node .title { display: block; }
-	.node .contacts { margin-top: 0.3em; list-style: none; }
-   </style>
-   
-    </head>
-  <body>
-    <div id="chart_div""></div>
-  </body>
-</html>
+{% endblock %}
 
+{% block content %}
+<div id="chart_div""></div>
+{% endblock %}

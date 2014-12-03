@@ -1,0 +1,17 @@
+{% extends "orgchart/base.html" %}
+{% load thumbnail %}
+
+{% block title %}{{person.full_name}}{% endblock %}
+
+{% block content %}
+<div class="person_edit"><a href="{% url 'admin:orgchart_person_change' person.id %}">edit</a></div>
+<h1>{{person.full_name}}</h1>
+{% if person.photo %}<div class="person_pic"><img src="{% thumbnail person.photo 512x512 %}" alt="{{person.full_name}}"></div>{% endif %}
+<div>{{person.title}}</div>
+
+<ul class="contacts">
+{% if person.email %}<li><a href="mailto:{{person.email}}">{{person.email}}</a></li>{% endif %}
+{% for phone in person.phonenumber_set.all %}<li>{{phone.number}}</li>{% endfor %}
+</ul>
+
+{% endblock content %}

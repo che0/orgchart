@@ -1,11 +1,9 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
+from django.views.generic import ListView, DetailView
 
 from orgchart.models import Person
 
-@login_required
-def chart(request):
-    return render(request, 'orgchart/chart.html', {
-        'people': Person.objects.all(),
-    })
-
+chart = login_required(ListView.as_view(model=Person, template_name='orgchart/chart.html'))
+table = login_required(ListView.as_view(model=Person, template_name='orgchart/table.html'))
+detail = login_required(DetailView.as_view(model=Person))

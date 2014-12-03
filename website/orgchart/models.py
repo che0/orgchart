@@ -1,7 +1,10 @@
+from __future__ import unicode_literals
+
 from django.db import models
 from django.utils.html import format_html
 from mptt.models import MPTTModel, TreeForeignKey
 from easy_thumbnails.fields import ThumbnailerImageField
+from django.core.urlresolvers import reverse
 
 class Person(MPTTModel):
     name = models.CharField(max_length=100)
@@ -39,6 +42,9 @@ class Person(MPTTModel):
             return ''
     photo_html.short_description = 'pic'
     photo_html.allow_tags = True
+    
+    def get_absolute_url(self):
+        return reverse('person_detail', kwargs={'pk':self.id})
     
     class Meta:
         ordering = ['surname', 'name']

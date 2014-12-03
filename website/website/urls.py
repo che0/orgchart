@@ -9,7 +9,9 @@ admin.autodiscover()
 admin.site.login = curry(social_auth, backend='google-oauth2')
 
 urlpatterns = patterns('',
-    url('^$', 'orgchart.views.chart'),
+    url('^$', 'orgchart.views.chart', name='chart'),
+    url('^table/$', 'orgchart.views.table', name='table'),
+    url('^person/(?P<pk>\d+)/$', 'orgchart.views.detail', name='person_detail'),
     url('', include('social.apps.django_app.urls', namespace='social')),
     url(r'^admin/', include(admin.site.urls)),
 )
