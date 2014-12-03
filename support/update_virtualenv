@@ -1,0 +1,4 @@
+#!/bin/bash
+dir=$(dirname "$0")
+source "${dir}/../deploy/pyenv/bin/activate"
+pip install --upgrade --requirement "${dir}/requirements.txt"

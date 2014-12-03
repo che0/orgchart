@@ -1,0 +1,43 @@
+"""
+Django settings for website project.
+
+For more information on this file, see
+https://docs.djangoproject.com/en/1.7/topics/settings/
+
+For the full list of settings and their values, see
+https://docs.djangoproject.com/en/1.7/ref/settings/
+"""
+
+# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
+import os
+BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+
+SECRET_KEY = '{{ secret_key }}'
+
+DEBUG = True
+TEMPLATE_DEBUG = True
+
+ALLOWED_HOSTS = []
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    }
+}
+
+# Internationalization
+# https://docs.djangoproject.com/en/1.7/topics/i18n/
+
+LANGUAGE_CODE = 'en-us'
+TIME_ZONE = 'UTC'
+USE_I18N = True
+USE_L10N = True
+USE_TZ = True
+
+# this imports almost everything from common settings
+# something like "from common_settings import FOO, BAR, BAZ, ..."
+import common_settings as _common
+for item in dir(_common):
+    if item not in _common._IGNORE:
+        locals()[item] = getattr(_common, item)
