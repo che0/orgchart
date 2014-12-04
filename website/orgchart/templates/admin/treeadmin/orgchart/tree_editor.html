@@ -1,0 +1,6 @@
+{% extends "admin/treeadmin/tree_editor.html" %}
+
+{% block object-tools-items %}
+{{block.super}}
+<li><a href="{% url 'chart' %}">Back to main view</a></li>
+{% endblock object-tools-items %}
