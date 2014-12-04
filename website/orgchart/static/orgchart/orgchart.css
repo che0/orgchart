@@ -23,7 +23,8 @@ table.people tr:hover td { background-color:#eec; }
 .tree .item:first-child { margin-top: 5px; }
 .tree .structured > .item { padding-left: 15px; }
 .tree .structured > .item::before { content: ''; width: 16px; height: 30px; position: absolute; top: 0; left: -1px; border-bottom: 1px solid #aaa; }
-.tree .children.flat { padding-bottom: 0.5em; }
+.tree .children.flat { padding-bottom: 0.5em; padding-top: 3px; position: relative; }
+.tree .children.flat::before { content:'———'; letter-spacing: -1px; color: #aaa; position: absolute; top:0; left: 30px; width:10px; height:85%; border-left-width: 1px; border-left-style: solid; border-left-color: #aaa;  border-image: linear-gradient(to bottom, #aaa 30%, rgba(160, 160, 160, 0)) 1 100%; }
 .tree .children.flat .item { display: inline-block; }
 .tree .children.structured > .item:last-child { margin-left: -1px; padding-left: 15px; border-left: 1px solid white; }
 .tree .children.structured > .item:last-child::before { content: ''; width: 16px; height: 30px; position: absolute; top: 0; left: -1px; border-left: 1px solid #aaa; border-bottom: 1px solid #aaa; }

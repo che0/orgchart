@@ -19,7 +19,7 @@
 			</ul>
 		</div>
 		{% if not node.is_leaf_node %}
-			<ul class="children {% if node.levels_below == 1 %}flat{% else %}structured{% endif %}">
+			<ul class="children {% if node.get_descendant_count > 1 and node.levels_below == 1 %}flat{% else %}structured{% endif %}">
 			{{ children }}
 			</ul>
 		{% endif %}
