@@ -54,7 +54,6 @@ class Person(MPTTModel):
             return bottom - self.level
     
     class Meta:
-        ordering = ['surname', 'name']
         verbose_name_plural = 'people'
     
     class MPTTMeta:
