@@ -31,7 +31,7 @@ table.people tr:hover td { background-color:#eec; }
 
 .tree .card { display: inline-block; vertical-align: top; border: 1px solid #aaa; padding: 5px; padding-left: 10px; margin: 0; min-width:15em; min-height: 65px; position: relative;   border-radius: 0 10px 10px 0; }
 
-.tree .card img { position: absolute; top: 0; left: 0; }
+.tree .card img { position: absolute; top: 0; left: 0; max-height: 100%; }
 .tree .card.with-photo { padding-left: 70px; }
 
 .tree .card .name { display: block; }
