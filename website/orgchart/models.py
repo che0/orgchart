@@ -13,6 +13,7 @@ class Person(MPTTModel):
     photo = ThumbnailerImageField(upload_to='photos', blank=True)
     nickname = models.CharField(max_length=50, blank=True)
     email = models.EmailField(blank=True)
+    skype = models.CharField(max_length=50, blank=True)
     
     def __unicode__(self):
         return self.full_name()

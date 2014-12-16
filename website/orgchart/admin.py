@@ -9,7 +9,7 @@ class TitleAdmin(admin.TabularInline):
     model = models.Title
 
 class PersonAdmin(TreeAdmin):
-    list_display = ('photo_html', 'indented_short_title', 'full_name', 'title', 'email', 'phone')
+    list_display = ('photo_html', 'indented_short_title', 'title', 'email', 'skype', 'phone')
     inlines = [TitleAdmin, PhoneNumberAdmin]
     
     class Media:

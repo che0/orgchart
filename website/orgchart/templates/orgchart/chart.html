@@ -15,6 +15,7 @@
 			{% for title in node.title_set.all %}<span class="title">{{title}}</span>{% endfor %}
 			<ul class="contacts">
 				{% if node.email %}<li><a href="mailto:{{node.email}}">{{node.email}}</a></li>{% endif %}
+				{% if node.skype %}<li>Skype: <a href="skype:{{node.skype}}">{{node.skype}}</a></li>{% endif %}
 				{% for phone in node.phonenumber_set.all %}<li>{{phone.number}}</li>{% endfor %}
 			</ul>
 		</div>
