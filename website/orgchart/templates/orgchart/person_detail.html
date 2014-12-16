@@ -11,6 +11,7 @@
 
 <ul class="contacts">
 {% if person.email %}<li><a href="mailto:{{person.email}}">{{person.email}}</a></li>{% endif %}
+{% if person.skype %}<li>Skype: <a href="skype:{{person.skype}}">{{person.skype}}</a></li>{% endif %}
 {% for phone in person.phonenumber_set.all %}<li>{{phone.number}}</li>{% endfor %}
 </ul>
 
